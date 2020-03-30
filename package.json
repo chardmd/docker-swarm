@@ -1,0 +1,24 @@
+{
+  "name": "docker-swarm",
+  "version": "1.0.0",
+  "license": "MIT",
+  "description": "Basic Concepts of Docker Swarm",
+  "author": "Richard Dimalanta",
+  "main": "app.js",
+  "scripts": {
+    "build:node": "docker build -t richard/docker_swarm_node .",
+    "build:nginx": "cd nginx && docker build -t richard/docker_swarm_nginx .",
+    "init-swarm": "docker swarm init",
+    "deploy": "docker stack deploy -c docker-compose.yml demoswarm",
+    "stack:list": "docker service ls",
+    "container:list": "docker container ls",
+    "visualizer": "docker container run -p 8080:8080 --name visualizer -v /var/run/docker.sock:/var/run/docker.sock -d dockersamples/visualizer",
+    "stack:kill": "docker stack rm demoswarm",
+    "visualizer:kill": "docker rm -f visualizer",
+    "leave-swarm": "docker swarm leave --force",
+    "clean:images": "docker rmi $(docker images -a -q)"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
